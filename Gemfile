@@ -63,6 +63,8 @@ gem 'will_paginate', '>= 3.1' # FOR THE PAGINATION - NEVER COMPLETED
 
 gem 'simple_form'
 
+gem "font-awesome-rails"
+
 
 
 
