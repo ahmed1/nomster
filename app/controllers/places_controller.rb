@@ -14,6 +14,18 @@ class PlacesController < ApplicationController
   #   @tasks = Task.search(params[:term], params[:page])
   # end
 
+  def create #sends values to database -- same as .create we used on the console 
+    Place.create(place_params)
+    redirect_to root_path
+  end
+
+  private
+
+  def place_params #pulls values
+    params.require(:place).permit(:name, :description, :address)
+  end
+
+
 
 
 
