@@ -29,6 +29,21 @@
             <% end %>
           </li>
         </ul>
+        <ul class="navbar-nav">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+             <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+             <!-- <%= link_to 'No user is signed in :(', '#', class: 'nav-link' %> -->
+              <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
+            </li>
+           <% end %>
+        </ul>
       </div>
     </nav>
 
@@ -42,3 +57,6 @@
     <%= yield %>
   </body>
 </html>
+
+
+<!-- new_user_password GET    /users/password/new(.:format)  devise/passwords#new -->
