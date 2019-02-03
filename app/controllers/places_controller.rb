@@ -1,6 +1,6 @@
 class PlacesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
   def index
     @places = Place.all
     # @places = Place.page(params[:page]) -- TRIED TO PAGINATE -- NOT WORKING
@@ -39,9 +39,9 @@ class PlacesController < ApplicationController
     @place = Place.find(params[:id])
     
     if @place.user != current_user
-      return render plain: 'Not Allowed', status :forbidden
+      return render plain: 'Not Allowed', status: :forbidden
     end
-    
+
 
 
     @place.update_attributes(place_params)
@@ -52,6 +52,11 @@ class PlacesController < ApplicationController
 
   def delete
     @place = Place.find(params[:id])
+
+    if @place.user != current_user
+      return render plain: 'Not Allowed', status: :forbidden
+    end
+    
 
     @place.destroy
 
