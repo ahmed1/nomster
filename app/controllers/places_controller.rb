@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-
+  before_action :authenticate_user!, only: [:new, :create]
   def index
     @places = Place.all
     # @places = Place.page(params[:page]) -- TRIED TO PAGINATE -- NOT WORKING
@@ -15,7 +15,7 @@ class PlacesController < ApplicationController
   # end
 
   def create #sends values to database -- same as .create we used on the console 
-    Place.create(place_params)
+    current_user.places.create(place_params)
     redirect_to root_path
   end
 
