@@ -1,5 +1,6 @@
 class PlacesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   def index
     @places = Place.all
     # @places = Place.page(params[:page]) -- TRIED TO PAGINATE -- NOT WORKING
@@ -26,12 +27,23 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.find(params[:id])
+
+    if @place.user != current_user
+      return render plain: 'Not Allowed', status: :forbidden
+    end
+
   end
 
 
   def update #how do I know this is the code that will be used when update button is pressed?
     @place = Place.find(params[:id])
     
+    if @place.user != current_user
+      return render plain: 'Not Allowed', status :forbidden
+    end
+    
+
+
     @place.update_attributes(place_params)
 
     redirect_to root_path
