@@ -29,6 +29,14 @@ class PlacesController < ApplicationController
   end
 
 
+  def update #how do I know this is the code that will be used when update button is pressed?
+    @place = Place.find(params[:id])
+    
+    @place.update_attributes(place_params)
+
+    redirect_to root_path
+  end
+
 
   private
 
